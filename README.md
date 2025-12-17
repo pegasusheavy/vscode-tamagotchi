@@ -2,8 +2,6 @@
 
 A virtual Tamagotchi pet that lives in your VSCode/Cursor editor! Take care of your digital companion while you code.
 
-![VSCode Tamagotchi](media/icon.svg)
-
 ## Features
 
 - 🥚 **Raise your pet from an egg** - Watch it evolve through 5 stages: Egg → Baby → Child → Teen → Adult
