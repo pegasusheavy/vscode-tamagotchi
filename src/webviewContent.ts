@@ -488,7 +488,7 @@ export function getWebviewContent(
     .pet-display {
       background: var(--card-bg);
       border-radius: 20px;
-      padding: 30px;
+      padding: 20px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -497,8 +497,8 @@ export function getWebviewContent(
     }
 
     .pet-sprite {
-      width: 120px;
-      height: 120px;
+      width: 180px;
+      height: 180px;
       margin: 0 auto;
       animation: bounce 1s ease-in-out infinite;
       display: flex;
