@@ -1,0 +1,88 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement for VSCode Tamagotchi
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! 🐣
+        We love hearing ideas from our community.
+
+  - type: checkboxes
+    id: existing
+    attributes:
+      label: Is there an existing request for this feature?
+      description: Please search to see if this feature has already been requested.
+      options:
+        - label: I have searched the existing issues and this is a new feature request
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: Is your feature request related to a problem? Please describe.
+      placeholder: "I'm always frustrated when..."
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like to see.
+      placeholder: "I would love it if..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Have you considered any alternative solutions or workarounds?
+      placeholder: "I've tried..."
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Feature Category
+      description: What area does this feature relate to?
+      options:
+        - Pet Behavior / AI
+        - Visual / Themes / Animations
+        - Stats / Gameplay Mechanics
+        - Evolution System
+        - UI / UX
+        - Configuration / Settings
+        - Commands / Shortcuts
+        - Integration with VSCode
+        - Performance
+        - Accessibility
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: How important is this feature to you?
+      options:
+        - Nice to have
+        - Would improve my experience
+        - Important for my workflow
+        - Critical / Blocking
+
+  - type: textarea
+    id: mockups
+    attributes:
+      label: Mockups / Examples
+      description: If applicable, add mockups, sketches, or examples from other tools.
+      placeholder: Drag and drop images here or describe what it might look like...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context, screenshots, or references about the feature request.
+

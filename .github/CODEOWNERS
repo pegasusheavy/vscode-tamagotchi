@@ -1,0 +1,18 @@
+# CODEOWNERS file
+# These owners will be the default owners for everything in the repo.
+# They will be requested for review when someone opens a pull request.
+
+# Default owners for everything
+* @pegasusheavy
+
+# Specific paths can have different owners
+# /docs/ @documentation-team
+# /src/ @core-team
+
+# GitHub Actions workflows
+/.github/workflows/ @pegasusheavy
+
+# Extension manifest and configuration
+/package.json @pegasusheavy
+/tsconfig.json @pegasusheavy
+

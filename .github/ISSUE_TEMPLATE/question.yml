@@ -1,0 +1,46 @@
+name: ❓ Question
+description: Ask a question about VSCode Tamagotchi
+title: "[Question]: "
+labels: ["question"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question? We're happy to help! 🦁
+        
+        Before asking, please check:
+        - [README](https://github.com/pegasusheavy/vscode-tamagotchi#readme)
+        - [Existing issues](https://github.com/pegasusheavy/vscode-tamagotchi/issues)
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: "How do I..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Question Category
+      options:
+        - Installation / Setup
+        - Configuration / Settings
+        - Pet Care / Gameplay
+        - Themes / Customization
+        - Troubleshooting
+        - Development / Contributing
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any additional information that might help us answer your question.
+
