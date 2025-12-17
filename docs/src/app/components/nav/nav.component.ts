@@ -3,28 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-nav',
   standalone: true,
-  template: `
-    <nav class="fixed top-0 left-0 right-0 z-50 glass">
-      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#" class="flex items-center gap-3 group">
-          <span class="text-3xl group-hover:animate-wiggle">🥚</span>
-          <span class="text-xl font-bold gradient-text">VSCode Tamagotchi</span>
-        </a>
-        <div class="hidden md:flex items-center gap-6">
-          <a href="#features" class="text-white/70 hover:text-white transition-colors">Features</a>
-          <a href="#sprites" class="text-white/70 hover:text-white transition-colors">Sprites</a>
-          <a href="#colors" class="text-white/70 hover:text-white transition-colors">Colors</a>
-          <a href="#demo" class="text-white/70 hover:text-white transition-colors">Demo</a>
-          <a href="#install" class="text-white/70 hover:text-white transition-colors">Install</a>
-          <a href="https://github.com/pegasusheavy/vscode-tamagotchi" target="_blank"
-             class="btn-glow bg-gradient-to-r from-[var(--tama-purple)] to-[var(--tama-blue)] px-5 py-2 rounded-full font-medium hover:shadow-lg transition-all">
-            GitHub ↗
-          </a>
-        </div>
-      </div>
-    </nav>
-  `,
-  styles: []
+  templateUrl: './nav.component.html',
+  styleUrl: './nav.component.css'
 })
 export class NavComponent {}
-

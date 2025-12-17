@@ -1,0 +1,74 @@
+<section class="min-h-screen flex items-center justify-center pt-20 px-6">
+  <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+    <div class="text-center lg:text-left animate-slide-up">
+      <div class="inline-block px-4 py-2 rounded-full glass text-sm mb-6 animate-pulse-glow">
+        ✨ Now with Custom SVG Sprites & Color Customization
+      </div>
+      <h1 class="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+        Meet Your New <span class="gradient-text">Coding Companion</span>
+      </h1>
+      <p class="text-xl text-white/70 mb-8 max-w-lg mx-auto lg:mx-0">
+        A delightful virtual pet that lives in your editor. Feed it, play with it, and watch it evolve as you code!
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+        <a href="#install" class="btn-glow bg-gradient-to-r from-[var(--tama-pink)] to-[var(--tama-purple)] px-8 py-4 rounded-full font-semibold text-lg hover:scale-105 transition-transform shadow-lg">
+          🎮 Get Started Free
+        </a>
+        <a href="#demo" class="btn-glow glass px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition-all">
+          👀 See Demo
+        </a>
+      </div>
+    </div>
+
+    <!-- Animated Pet Display with Real SVG -->
+    <div class="pet-container flex justify-center">
+      <div class="pet-screen glass rounded-3xl p-8 w-80 animate-pulse-glow">
+        <div class="text-center mb-4">
+          <div class="text-2xl font-bold gradient-text">{{ petName() }}</div>
+          <div class="text-sm text-white/50 uppercase tracking-widest">{{ stage() }} Stage</div>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-900/50 to-blue-900/50 rounded-2xl p-8 mb-6">
+          @if (currentSprite()) {
+            <div class="w-24 h-24 mx-auto cursor-pointer hover:scale-110 transition-transform sprite-container"
+                 [class.animate-bounce-slow]="!isAnimating()"
+                 [class.animate-wiggle]="isAnimating()"
+                 [innerHTML]="getSanitizedSvg(currentSprite()!.svg)"
+                 [style.--pet-primary]="colors().primary"
+                 [style.--pet-secondary]="colors().secondary"
+                 [style.--pet-accent]="colors().accent"
+                 [style.--pet-blush]="colors().blush"
+                 (click)="cyclePet()">
+            </div>
+          } @else {
+            <div class="text-8xl text-center animate-bounce-slow cursor-pointer" (click)="cyclePet()">
+              {{ fallbackEmoji() }}
+            </div>
+          }
+          <div class="text-center mt-4 text-white/60">{{ mood() }}</div>
+        </div>
+
+        <div class="space-y-3">
+          @for (stat of stats(); track stat.name) {
+            <div class="flex items-center gap-3">
+              <span class="w-8">{{ stat.icon }}</span>
+              <div class="stat-bar flex-1 h-3">
+                <div class="stat-fill transition-all duration-300" [style.width.%]="stat.value"
+                     [style.background]="stat.gradient"></div>
+              </div>
+              <span class="text-sm text-white/60 w-10">{{ stat.value }}%</span>
+            </div>
+          }
+        </div>
+
+        <div class="grid grid-cols-4 gap-2 mt-6">
+          <button (click)="feed()" class="btn-glow bg-white/10 hover:bg-white/20 rounded-xl p-3 transition-all hover:scale-110">🍖</button>
+          <button (click)="play()" class="btn-glow bg-white/10 hover:bg-white/20 rounded-xl p-3 transition-all hover:scale-110">🎾</button>
+          <button (click)="sleep()" class="btn-glow bg-white/10 hover:bg-white/20 rounded-xl p-3 transition-all hover:scale-110">💤</button>
+          <button (click)="clean()" class="btn-glow bg-white/10 hover:bg-white/20 rounded-xl p-3 transition-all hover:scale-110">🛁</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

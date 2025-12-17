@@ -1,0 +1,21 @@
+<section id="features" class="py-32 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl lg:text-5xl font-bold mb-4">Why You'll <span class="gradient-text">Love</span> It</h2>
+      <p class="text-xl text-white/60 max-w-2xl mx-auto">Everything you need to raise the perfect coding companion</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (feature of features; track feature.title) {
+        <div class="glow-card rounded-2xl p-8">
+          <div class="text-5xl mb-4 animate-float" [style.animation-delay]="feature.delay">
+            {{ feature.icon }}
+          </div>
+          <h3 class="text-xl font-bold mb-2">{{ feature.title }}</h3>
+          <p class="text-white/60">{{ feature.description }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
