@@ -30,10 +30,17 @@
         <!-- Pet Side -->
         <div class="flex flex-col items-center justify-center">
           <div class="text-xs uppercase tracking-widest text-white/40 mb-2">{{ stageName() }}</div>
-          <div class="text-7xl mb-4 animate-bounce-slow transition-all duration-300"
-               [class.animate-wiggle]="isAnimating()">
-            {{ currentPet() }}
-          </div>
+          @if (currentSprite()) {
+            <div class="w-28 h-28 mb-4 transition-all duration-300 sprite-container"
+                 [class.animate-bounce-slow]="!isAnimating()"
+                 [class.animate-wiggle]="isAnimating()"
+                 [innerHTML]="getSanitizedSvg(currentSprite()!.svg)"
+                 [style.--pet-primary]="colors().primary"
+                 [style.--pet-secondary]="colors().secondary"
+                 [style.--pet-accent]="colors().accent"
+                 [style.--pet-blush]="colors().blush">
+            </div>
+          }
           <div class="text-white/60 mb-4">{{ mood() }}</div>
 
           <div class="w-full space-y-2 mb-4">
@@ -79,15 +86,20 @@
     <div class="mt-24">
       <h3 class="text-2xl font-bold text-center mb-12">The <span class="gradient-text">Evolution</span> Journey</h3>
       <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8">
-        @for (stage of stages; track stage.name; let i = $index) {
+        @for (stage of stages(); track stage.name; let i = $index) {
           <div class="text-center">
-            <div class="text-6xl mb-2 animate-float" [style.animation-delay]="(i * 0.5) + 's'">
-              {{ stage.emoji }}
+            <div class="w-20 h-20 mb-2 mx-auto animate-float sprite-container"
+                 [style.animation-delay]="(i * 0.5) + 's'"
+                 [innerHTML]="getSanitizedSvg(stage.svg)"
+                 [style.--pet-primary]="colors().primary"
+                 [style.--pet-secondary]="colors().secondary"
+                 [style.--pet-accent]="colors().accent"
+                 [style.--pet-blush]="colors().blush">
             </div>
             <div class="text-sm font-bold">{{ stage.name }}</div>
             <div class="text-xs text-white/40">{{ stage.ticks }}</div>
           </div>
-          @if (i < stages.length - 1) {
+          @if (i < stages().length - 1) {
             <div class="text-3xl text-white/30">→</div>
           }
         }
@@ -95,4 +107,3 @@
     </div>
   </div>
 </section>
-

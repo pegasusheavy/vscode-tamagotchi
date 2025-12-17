@@ -1,2 +1,4 @@
-/* Demo component styles */
-
+::host ::ng-deep .sprite-container svg {
+  width: 100%;
+  height: 100%;
+}

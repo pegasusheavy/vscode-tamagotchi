@@ -1,4 +1,13 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+
+interface SpriteData {
+  name: string;
+  path: string;
+  svg: string;
+  ticks: string;
+}
 
 @Component({
   selector: 'app-demo',
@@ -6,7 +15,10 @@ import { Component, signal } from '@angular/core';
   templateUrl: './demo.component.html',
   styleUrl: './demo.component.css'
 })
-export class DemoComponent {
+export class DemoComponent implements OnInit {
+  private sanitizer = inject(DomSanitizer);
+  private http = inject(HttpClient);
+
   hunger = signal(80);
   happiness = signal(80);
   energy = signal(80);
@@ -16,16 +28,53 @@ export class DemoComponent {
   codeComment = signal('// Yummy! 🍖');
   isAnimating = signal(false);
 
-  stages = [
-    { name: 'Egg', emoji: '🥚', ticks: '0 ticks' },
-    { name: 'Baby', emoji: '🐣', ticks: '10 ticks' },
-    { name: 'Child', emoji: '🐱', ticks: '50 ticks' },
-    { name: 'Teen', emoji: '🐯', ticks: '150 ticks' },
-    { name: 'Adult', emoji: '🦁', ticks: '300 ticks' },
+  stages = signal<SpriteData[]>([]);
+  currentSprite = signal<SpriteData | null>(null);
+  stageName = signal('Baby');
+
+  colors = signal({
+    primary: '#ff6b9d',
+    secondary: '#c44cff',
+    accent: '#ffe14c',
+    blush: '#ffb3d9'
+  });
+
+  private spriteInfo = [
+    { name: 'Egg', path: 'sprites/egg.svg', ticks: '0 ticks' },
+    { name: 'Baby', path: 'sprites/baby.svg', ticks: '10 ticks' },
+    { name: 'Child', path: 'sprites/child.svg', ticks: '50 ticks' },
+    { name: 'Teen', path: 'sprites/teen.svg', ticks: '150 ticks' },
+    { name: 'Adult', path: 'sprites/adult.svg', ticks: '300 ticks' },
   ];
 
-  currentPet = signal('🐣');
-  stageName = signal('Baby');
+  ngOnInit() {
+    this.loadSprites();
+  }
+
+  private async loadSprites() {
+    const sprites: SpriteData[] = [];
+    for (const info of this.spriteInfo) {
+      const svg = await this.loadSvg(info.path);
+      sprites.push({ ...info, svg });
+    }
+    this.stages.set(sprites);
+    // Start at Baby (index 1)
+    this.currentSprite.set(sprites[1]);
+    this.stageName.set(sprites[1].name);
+  }
+
+  private loadSvg(path: string): Promise<string> {
+    return new Promise((resolve) => {
+      this.http.get(path, { responseType: 'text' }).subscribe({
+        next: (svg) => resolve(svg),
+        error: () => resolve('')
+      });
+    });
+  }
+
+  getSanitizedSvg(svg: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(svg);
+  }
 
   feed() {
     this.animate();
@@ -73,10 +122,14 @@ export class DemoComponent {
 
   private checkEvolution() {
     const avg = (this.hunger() + this.happiness() + this.energy()) / 3;
-    if (avg > 85 && this.stageIndex() < this.stages.length - 1) {
+    const stagesList = this.stages();
+    if (avg > 85 && this.stageIndex() < stagesList.length - 1) {
       this.stageIndex.update(v => v + 1);
-      this.currentPet.set(this.stages[this.stageIndex()].emoji);
-      this.stageName.set(this.stages[this.stageIndex()].name);
+      const newStage = stagesList[this.stageIndex()];
+      if (newStage) {
+        this.currentSprite.set(newStage);
+        this.stageName.set(newStage.name);
+      }
       this.mood.set('✨ Evolved! ✨');
     }
   }
