@@ -664,6 +664,28 @@ export function getWebviewContent(
       font-size: 0.8rem;
       color: var(--text-muted);
     }
+
+    .restart-container {
+      text-align: center;
+    }
+
+    .restart-btn {
+      width: 100%;
+      padding: 18px 24px;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .restart-btn:hover {
+      background: linear-gradient(135deg, #45a049 0%, #4CAF50 100%);
+      transform: translateY(-3px);
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4); }
+      50% { box-shadow: 0 4px 25px rgba(76, 175, 80, 0.7); }
+    }
   </style>
 </head>
 <body>
@@ -732,7 +754,7 @@ export function getWebviewContent(
       </div>
     </div>
 
-    <div class="actions">
+    <div class="actions" id="actionsContainer" style="${!state.stats.isAlive ? 'display: none;' : ''}">
       <button class="action-btn" id="feedBtn" ${!state.stats.isAlive ? 'disabled' : ''}>
         <span class="icon">🍖</span> Feed
       </button>
@@ -747,7 +769,13 @@ export function getWebviewContent(
       </button>
     </div>
 
-    <div class="message" id="message">Take care of your Tamagotchi!</div>
+    <div class="restart-container" id="restartContainer" style="${state.stats.isAlive ? 'display: none;' : ''}">
+      <button class="action-btn restart-btn" id="restartBtn">
+        <span class="icon">🔄</span> Start New Tamagotchi
+      </button>
+    </div>
+
+    <div class="message" id="message">${!state.stats.isAlive ? '💔 Your Tamagotchi has passed away...' : 'Take care of your Tamagotchi!'}</div>
 
     <div class="age-display" id="ageDisplay">Age: ${state.stats.age} ticks</div>
   </div>
@@ -822,6 +850,15 @@ export function getWebviewContent(
       document.getElementById('sleepBtn').disabled = !isAlive;
       document.getElementById('cleanBtn').disabled = !isAlive;
 
+      // Show/hide actions vs restart button
+      document.getElementById('actionsContainer').style.display = isAlive ? '' : 'none';
+      document.getElementById('restartContainer').style.display = isAlive ? 'none' : '';
+
+      // Update message for dead state
+      if (!isAlive) {
+        document.getElementById('message').textContent = '💔 Your Tamagotchi has passed away...';
+      }
+
       document.getElementById('ageDisplay').textContent = 'Age: ' + state.stats.age + ' ticks';
     }
 
@@ -833,6 +870,7 @@ export function getWebviewContent(
     document.getElementById('playBtn').addEventListener('click', () => vscode.postMessage({ command: 'play' }));
     document.getElementById('sleepBtn').addEventListener('click', () => vscode.postMessage({ command: 'sleep' }));
     document.getElementById('cleanBtn').addEventListener('click', () => vscode.postMessage({ command: 'clean' }));
+    document.getElementById('restartBtn').addEventListener('click', () => vscode.postMessage({ command: 'restart' }));
 
     window.addEventListener('message', event => {
       const message = event.data;

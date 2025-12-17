@@ -79,6 +79,11 @@ export class TamagotchiSidebarProvider implements vscode.WebviewViewProvider {
         const cleanResult = this._tamagotchi.clean();
         this._sendMessage({ command: 'actionResult', ...cleanResult });
         break;
+      case 'restart':
+        this._tamagotchi.reset();
+        this._sendMessage({ command: 'actionResult', message: '🐣 A new Tamagotchi has been born!' });
+        this._sendStateUpdate(this._tamagotchi.getState());
+        break;
       case 'getState':
         this._sendStateUpdate(this._tamagotchi.getState());
         break;
