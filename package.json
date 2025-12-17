@@ -1,0 +1,149 @@
+{
+  "name": "vscode-tamagotchi",
+  "displayName": "VSCode Tamagotchi",
+  "description": "A virtual Tamagotchi pet that lives in your VSCode/Cursor editor",
+  "version": "0.1.0",
+  "publisher": "pegasus-heavy-industries",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "tamagotchi",
+    "pet",
+    "virtual pet",
+    "game",
+    "fun"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "tamagotchi.show",
+        "title": "Show Tamagotchi",
+        "category": "Tamagotchi"
+      },
+      {
+        "command": "tamagotchi.feed",
+        "title": "Feed Tamagotchi",
+        "category": "Tamagotchi"
+      },
+      {
+        "command": "tamagotchi.play",
+        "title": "Play with Tamagotchi",
+        "category": "Tamagotchi"
+      },
+      {
+        "command": "tamagotchi.sleep",
+        "title": "Put Tamagotchi to Sleep",
+        "category": "Tamagotchi"
+      },
+      {
+        "command": "tamagotchi.clean",
+        "title": "Clean Tamagotchi",
+        "category": "Tamagotchi"
+      },
+      {
+        "command": "tamagotchi.reset",
+        "title": "Reset Tamagotchi",
+        "category": "Tamagotchi"
+      }
+    ],
+    "configuration": {
+      "title": "Tamagotchi",
+      "properties": {
+        "tamagotchi.position": {
+          "type": "string",
+          "default": "panel",
+          "enum": [
+            "panel",
+            "sidebar",
+            "editor"
+          ],
+          "enumDescriptions": [
+            "Show in bottom panel area",
+            "Show in sidebar (explorer area)",
+            "Show as an editor tab"
+          ],
+          "description": "Where to display the Tamagotchi window"
+        },
+        "tamagotchi.petName": {
+          "type": "string",
+          "default": "Tama",
+          "description": "Name your Tamagotchi pet"
+        },
+        "tamagotchi.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically show Tamagotchi when VSCode starts"
+        },
+        "tamagotchi.updateInterval": {
+          "type": "number",
+          "default": 30000,
+          "minimum": 10000,
+          "maximum": 300000,
+          "description": "How often stats decrease (in milliseconds)"
+        },
+        "tamagotchi.theme": {
+          "type": "string",
+          "default": "classic",
+          "enum": [
+            "classic",
+            "neon",
+            "pastel",
+            "dark"
+          ],
+          "description": "Visual theme for your Tamagotchi"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "tamagotchi-sidebar",
+          "title": "Tamagotchi",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "tamagotchi-sidebar": [
+        {
+          "type": "webview",
+          "id": "tamagotchi.sidebarView",
+          "name": "Tamagotchi",
+          "when": "config.tamagotchi.position == 'sidebar'"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile",
+    "test": "vitest",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "@vscode/vsce": "^2.22.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PegasusHeavyIndustries/vscode-tamagotchi"
+  }
+}
