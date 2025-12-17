@@ -23,15 +23,41 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Register commands
   context.subscriptions.push(
-    vscode.commands.registerCommand('tamagotchi.show', () => {
+    vscode.commands.registerCommand('tamagotchi.show', async () => {
       const config = vscode.workspace.getConfiguration('tamagotchi');
-      const position = config.get<string>('position', 'panel');
+      const position = config.get<string>('position', 'sidebar-left');
 
-      if (position === 'sidebar') {
-        vscode.commands.executeCommand('tamagotchi-sidebar.focus');
+      if (position === 'sidebar-left' || position === 'sidebar-right') {
+        // Focus the sidebar view
+        await vscode.commands.executeCommand('tamagotchi.sidebarView.focus');
+        
+        // Move to appropriate sidebar location
+        if (position === 'sidebar-right') {
+          // Move view to the auxiliary bar (right sidebar)
+          await vscode.commands.executeCommand('workbench.action.moveViewToSecondarySideBar');
+        } else {
+          // Ensure it's in the primary sidebar (left)
+          await vscode.commands.executeCommand('workbench.action.moveViewToPrimarySideBar');
+        }
       } else {
         TamagotchiPanel.createOrShow(context, tamagotchi, position === 'editor');
       }
+    })
+  );
+  
+  // Command to move to left sidebar
+  context.subscriptions.push(
+    vscode.commands.registerCommand('tamagotchi.moveToLeft', async () => {
+      await vscode.commands.executeCommand('tamagotchi.sidebarView.focus');
+      await vscode.commands.executeCommand('workbench.action.moveViewToPrimarySideBar');
+    })
+  );
+  
+  // Command to move to right sidebar
+  context.subscriptions.push(
+    vscode.commands.registerCommand('tamagotchi.moveToRight', async () => {
+      await vscode.commands.executeCommand('tamagotchi.sidebarView.focus');
+      await vscode.commands.executeCommand('workbench.action.moveViewToSecondarySideBar');
     })
   );
 

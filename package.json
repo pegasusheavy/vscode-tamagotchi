@@ -53,6 +53,16 @@
         "command": "tamagotchi.reset",
         "title": "Reset Tamagotchi",
         "category": "Tamagotchi"
+      },
+      {
+        "command": "tamagotchi.moveToLeft",
+        "title": "Move Tamagotchi to Left Sidebar",
+        "category": "Tamagotchi"
+      },
+      {
+        "command": "tamagotchi.moveToRight",
+        "title": "Move Tamagotchi to Right Sidebar",
+        "category": "Tamagotchi"
       }
     ],
     "configuration": {
@@ -60,15 +70,17 @@
       "properties": {
         "tamagotchi.position": {
           "type": "string",
-          "default": "panel",
+          "default": "sidebar-left",
           "enum": [
+            "sidebar-left",
+            "sidebar-right",
             "panel",
-            "sidebar",
             "editor"
           ],
           "enumDescriptions": [
+            "Show in left sidebar (with file explorer)",
+            "Show in right sidebar (auxiliary bar, with AI chat)",
             "Show in bottom panel area",
-            "Show in sidebar (explorer area)",
             "Show as an editor tab"
           ],
           "description": "Where to display the Tamagotchi window"
@@ -118,7 +130,22 @@
           "type": "webview",
           "id": "tamagotchi.sidebarView",
           "name": "Tamagotchi",
-          "when": "config.tamagotchi.position == 'sidebar'"
+          "contextualTitle": "Tamagotchi Pet",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "tamagotchi.feed",
+          "when": "view == tamagotchi.sidebarView",
+          "group": "navigation"
+        },
+        {
+          "command": "tamagotchi.play",
+          "when": "view == tamagotchi.sidebarView",
+          "group": "navigation"
         }
       ]
     }

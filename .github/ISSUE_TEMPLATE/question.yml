@@ -9,7 +9,7 @@ body:
     attributes:
       value: |
         Have a question? We're happy to help! 🦁
-        
+
         Before asking, please check:
         - [README](https://github.com/pegasusheavy/vscode-tamagotchi#readme)
         - [Existing issues](https://github.com/pegasusheavy/vscode-tamagotchi/issues)
