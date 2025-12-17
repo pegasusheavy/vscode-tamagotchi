@@ -22,7 +22,7 @@
 
     <!-- Actual Extension Interface Preview -->
     <div class="flex justify-center">
-      <div class="extension-preview w-80 rounded-2xl overflow-hidden shadow-2xl" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
+      <div class="extension-preview w-96 rounded-2xl overflow-hidden shadow-2xl" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
         <!-- Header -->
         <div class="text-center pt-5 pb-2">
           <div class="text-xl font-bold" style="background: linear-gradient(135deg, var(--tama-pink), var(--tama-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{{ petName() }}</div>
@@ -30,9 +30,9 @@
         </div>
 
         <!-- Pet Display -->
-        <div class="mx-4 mb-4 rounded-2xl p-6 backdrop-blur-sm" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1);">
+        <div class="mx-4 mb-4 rounded-2xl p-4 backdrop-blur-sm" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1);">
           @if (currentSprite()) {
-            <div class="w-52 h-52 mx-auto cursor-pointer sprite-container"
+            <div class="w-64 h-64 mx-auto cursor-pointer sprite-container"
                  [class.animate-bounce-slow]="!isAnimating()"
                  [class.animate-wiggle]="isAnimating()"
                  [innerHTML]="getSanitizedSvg(currentSprite()!.svg)"
