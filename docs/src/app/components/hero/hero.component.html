@@ -20,17 +20,19 @@
       </div>
     </div>
 
-    <!-- Animated Pet Display with Real SVG -->
-    <div class="pet-container flex justify-center">
-      <div class="pet-screen glass rounded-3xl p-8 w-80 animate-pulse-glow">
-        <div class="text-center mb-4">
-          <div class="text-2xl font-bold gradient-text">{{ petName() }}</div>
-          <div class="text-sm text-white/50 uppercase tracking-widest">{{ stage() }} Stage</div>
+    <!-- Actual Extension Interface Preview -->
+    <div class="flex justify-center">
+      <div class="extension-preview w-80 rounded-2xl overflow-hidden shadow-2xl" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
+        <!-- Header -->
+        <div class="text-center pt-5 pb-2">
+          <div class="text-xl font-bold" style="background: linear-gradient(135deg, var(--tama-pink), var(--tama-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{{ petName() }}</div>
+          <div class="text-xs text-white/50 uppercase tracking-widest mt-1">{{ stage() }}</div>
         </div>
 
-        <div class="bg-gradient-to-br from-purple-900/50 to-blue-900/50 rounded-2xl p-8 mb-6">
+        <!-- Pet Display -->
+        <div class="mx-4 mb-4 rounded-2xl p-6 backdrop-blur-sm" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1);">
           @if (currentSprite()) {
-            <div class="w-24 h-24 mx-auto cursor-pointer hover:scale-110 transition-transform sprite-container"
+            <div class="w-28 h-28 mx-auto cursor-pointer sprite-container"
                  [class.animate-bounce-slow]="!isAnimating()"
                  [class.animate-wiggle]="isAnimating()"
                  [innerHTML]="getSanitizedSvg(currentSprite()!.svg)"
@@ -41,34 +43,59 @@
                  (click)="cyclePet()">
             </div>
           } @else {
-            <div class="text-8xl text-center animate-bounce-slow cursor-pointer" (click)="cyclePet()">
+            <div class="text-7xl text-center animate-bounce-slow cursor-pointer" (click)="cyclePet()">
               {{ fallbackEmoji() }}
             </div>
           }
-          <div class="text-center mt-4 text-white/60">{{ mood() }}</div>
+          <div class="text-center mt-3 text-sm text-white/60">{{ mood() }}</div>
         </div>
 
-        <div class="space-y-3">
+        <!-- Stats Container -->
+        <div class="mx-4 mb-4 rounded-xl p-4 backdrop-blur-sm" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1);">
           @for (stat of stats(); track stat.name) {
-            <div class="flex items-center gap-3">
-              <span class="w-8">{{ stat.icon }}</span>
-              <div class="stat-bar flex-1 h-3">
-                <div class="stat-fill transition-all duration-300" [style.width.%]="stat.value"
+            <div class="mb-3 last:mb-0">
+              <div class="flex justify-between text-xs mb-1">
+                <span class="flex items-center gap-1.5">
+                  <span>{{ stat.icon }}</span>
+                  <span class="text-white/80">{{ stat.label }}</span>
+                </span>
+                <span class="text-white/50">{{ stat.value }}%</span>
+              </div>
+              <div class="h-2 rounded-full overflow-hidden" style="background: rgba(255,255,255,0.1);">
+                <div class="h-full rounded-full transition-all duration-300"
+                     [style.width.%]="stat.value"
                      [style.background]="stat.gradient"></div>
               </div>
-              <span class="text-sm text-white/60 w-10">{{ stat.value }}%</span>
             </div>
           }
         </div>
 
-        <div class="grid grid-cols-4 gap-2 mt-6">
-          <button (click)="feed()" class="btn-glow bg-white/10 hover:bg-white/20 rounded-xl p-3 transition-all hover:scale-110">🍖</button>
-          <button (click)="play()" class="btn-glow bg-white/10 hover:bg-white/20 rounded-xl p-3 transition-all hover:scale-110">🎾</button>
-          <button (click)="sleep()" class="btn-glow bg-white/10 hover:bg-white/20 rounded-xl p-3 transition-all hover:scale-110">💤</button>
-          <button (click)="clean()" class="btn-glow bg-white/10 hover:bg-white/20 rounded-xl p-3 transition-all hover:scale-110">🛁</button>
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-2 gap-2 mx-4 mb-4">
+          <button (click)="feed()" class="py-3 px-4 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-2 transition-all hover:scale-105 hover:shadow-lg" style="background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);">
+            <span>🍖</span> Feed
+          </button>
+          <button (click)="play()" class="py-3 px-4 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-2 transition-all hover:scale-105 hover:shadow-lg" style="background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);">
+            <span>🎾</span> Play
+          </button>
+          <button (click)="sleep()" class="py-3 px-4 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-2 transition-all hover:scale-105 hover:shadow-lg" style="background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);">
+            <span>💤</span> Sleep
+          </button>
+          <button (click)="clean()" class="py-3 px-4 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-2 transition-all hover:scale-105 hover:shadow-lg" style="background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);">
+            <span>🛁</span> Clean
+          </button>
+        </div>
+
+        <!-- Message -->
+        <div class="mx-4 mb-3 py-2 px-4 rounded-lg text-center text-sm text-white/70" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1);">
+          {{ message() }}
+        </div>
+
+        <!-- Age Display -->
+        <div class="text-center pb-4 text-xs text-white/40">
+          Age: {{ age() }} ticks
         </div>
       </div>
     </div>
   </div>
 </section>
-

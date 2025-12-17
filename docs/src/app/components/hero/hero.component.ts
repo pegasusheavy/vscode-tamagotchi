@@ -20,7 +20,9 @@ export class HeroComponent implements OnInit {
 
   petName = signal('Tama');
   stage = signal('Adult');
-  mood = signal('Feeling happy!');
+  mood = signal('Feeling happy');
+  message = signal('Take care of your Tamagotchi!');
+  age = signal(342);
   isAnimating = signal(false);
   fallbackEmoji = signal('🦁');
 
@@ -46,10 +48,11 @@ export class HeroComponent implements OnInit {
   private fallbackEmojis = ['🥚', '🐣', '🐱', '🐯', '🦁'];
 
   stats = signal([
-    { name: 'hunger', icon: '🍖', value: 85, gradient: 'linear-gradient(90deg, #ff6b6b, #ff6b9d)' },
-    { name: 'happiness', icon: '😊', value: 92, gradient: 'linear-gradient(90deg, #ffe14c, #ff6b6b)' },
-    { name: 'energy', icon: '⚡', value: 78, gradient: 'linear-gradient(90deg, #4cc9ff, #4cffc4)' },
-    { name: 'health', icon: '❤️', value: 95, gradient: 'linear-gradient(90deg, #ff6b9d, #c44cff)' },
+    { name: 'hunger', label: 'Hunger', icon: '🍖', value: 85, gradient: 'linear-gradient(90deg, #e94560, #ff6b6b)' },
+    { name: 'happiness', label: 'Happiness', icon: '😊', value: 92, gradient: 'linear-gradient(90deg, #e94560, #ff6b6b)' },
+    { name: 'energy', label: 'Energy', icon: '⚡', value: 78, gradient: 'linear-gradient(90deg, #e94560, #ff6b6b)' },
+    { name: 'cleanliness', label: 'Cleanliness', icon: '🧼', value: 88, gradient: 'linear-gradient(90deg, #e94560, #ff6b6b)' },
+    { name: 'health', label: 'Health', icon: '❤️', value: 95, gradient: 'linear-gradient(90deg, #e94560, #ff6b6b)' },
   ]);
 
   ngOnInit() {
@@ -90,31 +93,52 @@ export class HeroComponent implements OnInit {
 
   feed() {
     this.animate();
-    this.mood.set('Yummy! 🍖');
+    this.mood.set('Feeling satisfied');
+    this.message.set('Yummy! 🍖 That was delicious!');
     this.updateStat('hunger', 15);
-    setTimeout(() => this.mood.set('Feeling happy!'), 1500);
+    setTimeout(() => {
+      this.mood.set('Feeling happy');
+      this.message.set('Take care of your Tamagotchi!');
+    }, 1500);
   }
 
   play() {
     this.animate();
-    this.mood.set('So fun! 🎾');
+    this.mood.set('Feeling joyful');
+    this.message.set('So fun! 🎾 Let\'s play more!');
     this.updateStat('happiness', 20);
     this.updateStat('energy', -10);
-    setTimeout(() => this.mood.set('Feeling happy!'), 1500);
+    setTimeout(() => {
+      this.mood.set('Feeling happy');
+      this.message.set('Take care of your Tamagotchi!');
+    }, 1500);
   }
 
   sleep() {
     this.animate();
-    this.mood.set('Zzz... 💤');
+    this.mood.set('Feeling sleepy');
+    this.message.set('Zzz... 💤 Resting now...');
     this.updateStat('energy', 25);
-    setTimeout(() => this.mood.set('Wide awake! ☀️'), 2000);
+    setTimeout(() => {
+      this.mood.set('Feeling refreshed');
+      this.message.set('Wide awake! ☀️');
+    }, 2000);
+    setTimeout(() => {
+      this.mood.set('Feeling happy');
+      this.message.set('Take care of your Tamagotchi!');
+    }, 3500);
   }
 
   clean() {
     this.animate();
-    this.mood.set('Sparkly clean! ✨');
+    this.mood.set('Feeling fresh');
+    this.message.set('Sparkly clean! ✨');
+    this.updateStat('cleanliness', 20);
     this.updateStat('health', 10);
-    setTimeout(() => this.mood.set('Feeling happy!'), 1500);
+    setTimeout(() => {
+      this.mood.set('Feeling happy');
+      this.message.set('Take care of your Tamagotchi!');
+    }, 1500);
   }
 
   private animate() {
