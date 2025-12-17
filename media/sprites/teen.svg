@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="teenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:var(--pet-primary, #ff6b9d)"/>
+      <stop offset="100%" style="stop-color:var(--pet-secondary, #c44cff)"/>
+    </linearGradient>
+    <linearGradient id="teenStripes" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:var(--pet-accent, #ffe14c)"/>
+      <stop offset="50%" style="stop-color:var(--pet-primary, #ff6b9d)"/>
+      <stop offset="100%" style="stop-color:var(--pet-accent, #ffe14c)"/>
+    </linearGradient>
+  </defs>
+  <!-- Ears (pointed) -->
+  <path d="M5 12 L8 3 L11 10" fill="url(#teenGradient)"/>
+  <path d="M6 10 L8 5 L10 9" fill="var(--pet-blush, #ffb3d9)"/>
+  <path d="M21 10 L24 3 L27 12" fill="url(#teenGradient)"/>
+  <path d="M22 9 L24 5 L26 10" fill="var(--pet-blush, #ffb3d9)"/>
+  <!-- Head -->
+  <circle cx="16" cy="14" r="10" fill="url(#teenGradient)"/>
+  <!-- Stripes on forehead -->
+  <path d="M11 7 L13 10" stroke="var(--pet-accent, #ffe14c)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M15 6 L16 10" stroke="var(--pet-accent, #ffe14c)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M19 7 L21 10" stroke="var(--pet-accent, #ffe14c)" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Face highlight -->
+  <ellipse cx="11" cy="11" rx="3" ry="2" fill="rgba(255,255,255,0.2)"/>
+  <!-- Left eye (more expressive) -->
+  <ellipse cx="11" cy="13" rx="3" ry="3.5" fill="white"/>
+  <circle cx="11" cy="13" r="2" fill="var(--pet-eyes, #1a1a2e)"/>
+  <circle cx="10" cy="12" r="0.8" fill="white"/>
+  <circle cx="12" cy="14" r="0.4" fill="white"/>
+  <!-- Right eye -->
+  <ellipse cx="21" cy="13" rx="3" ry="3.5" fill="white"/>
+  <circle cx="21" cy="13" r="2" fill="var(--pet-eyes, #1a1a2e)"/>
+  <circle cx="20" cy="12" r="0.8" fill="white"/>
+  <circle cx="22" cy="14" r="0.4" fill="white"/>
+  <!-- Nose -->
+  <path d="M15 16 L16 17.5 L17 16 Z" fill="var(--pet-eyes, #1a1a2e)"/>
+  <!-- Cheeks -->
+  <ellipse cx="6" cy="16" rx="2" ry="1.5" fill="var(--pet-blush, #ffb3d9)" opacity="0.7"/>
+  <ellipse cx="26" cy="16" rx="2" ry="1.5" fill="var(--pet-blush, #ffb3d9)" opacity="0.7"/>
+  <!-- Mouth (confident smirk) -->
+  <path d="M12 20 Q16 23 20 20" stroke="var(--pet-eyes, #1a1a2e)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M19 19 L21 18" stroke="var(--pet-eyes, #1a1a2e)" stroke-width="1" stroke-linecap="round"/>
+  <!-- Body -->
+  <ellipse cx="16" cy="27" rx="7" ry="4" fill="url(#teenGradient)"/>
+  <!-- Body stripes -->
+  <path d="M12 25 L11 29" stroke="var(--pet-accent, #ffe14c)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M16 24 L16 29" stroke="var(--pet-accent, #ffe14c)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M20 25 L21 29" stroke="var(--pet-accent, #ffe14c)" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Paws -->
+  <ellipse cx="10" cy="30" rx="3" ry="2" fill="var(--pet-secondary, #c44cff)"/>
+  <ellipse cx="22" cy="30" rx="3" ry="2" fill="var(--pet-secondary, #c44cff)"/>
+</svg>
+

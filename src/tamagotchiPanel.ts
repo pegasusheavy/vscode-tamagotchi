@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { Tamagotchi, TamagotchiState } from './tamagotchi';
-import { getWebviewContent } from './webviewContent';
+import { getWebviewContent, PetColors, COLOR_PRESETS } from './webviewContent';
 
 export class TamagotchiPanel {
   public static currentPanel: TamagotchiPanel | undefined;
@@ -111,12 +111,28 @@ export class TamagotchiPanel {
   private _update(): void {
     const config = vscode.workspace.getConfiguration('tamagotchi');
     const theme = config.get<string>('theme', 'classic');
+    const useCustomSprites = config.get<boolean>('useCustomSprites', true);
+    const colorPreset = config.get<string>('colorPreset', 'custom');
+
+    let petColors: PetColors;
+    if (colorPreset !== 'custom' && COLOR_PRESETS[colorPreset]) {
+      petColors = COLOR_PRESETS[colorPreset];
+    } else {
+      petColors = {
+        primary: config.get<string>('petColors.primary', '#ff6b9d'),
+        secondary: config.get<string>('petColors.secondary', '#c44cff'),
+        accent: config.get<string>('petColors.accent', '#ffe14c'),
+        blush: config.get<string>('petColors.blush', '#ffb3d9'),
+      };
+    }
 
     this._panel.webview.html = getWebviewContent(
       this._panel.webview,
       this._context.extensionUri,
       this._tamagotchi.getState(),
-      theme
+      theme,
+      useCustomSprites,
+      petColors
     );
   }
 

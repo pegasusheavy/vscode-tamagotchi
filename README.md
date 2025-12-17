@@ -5,13 +5,15 @@ A virtual Tamagotchi pet that lives in your VSCode/Cursor editor! Take care of y
 ## Features
 
 - 🥚 **Raise your pet from an egg** - Watch it evolve through 5 stages: Egg → Baby → Child → Teen → Adult
+- 🎨 **Custom SVG sprites** - Beautiful, colorful pixel-art style characters
+- 🌈 **Fully customizable colors** - Pick your own colors or use presets
 - 🍖 **Feed your Tamagotchi** - Keep hunger levels up to maintain health
 - 🎾 **Play with your pet** - Keep happiness high but watch the energy!
 - 💤 **Rest time** - Put your pet to sleep to restore energy
 - 🛁 **Stay clean** - Regular cleaning keeps your pet healthy
 - ❤️ **Health system** - Neglect your pet and its health will decline
 - 🎨 **Multiple themes** - Classic, Neon, Pastel, and Dark themes
-- 📍 **Configurable position** - Show in panel, sidebar, or as an editor tab
+- 📍 **Configurable position** - Show in left sidebar, right sidebar, panel, or as an editor tab
 - 💾 **Persistent state** - Your pet remembers its stats even when VSCode is closed
 
 ## Installation
@@ -40,18 +42,48 @@ Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) and search for:
 - `Tamagotchi: Put Tamagotchi to Sleep` - Toggle sleep mode
 - `Tamagotchi: Clean Tamagotchi` - Clean your pet
 - `Tamagotchi: Reset Tamagotchi` - Start over with a new egg
+- `Tamagotchi: Move to Left Sidebar` - Move your pet to the left sidebar
+- `Tamagotchi: Move to Right Sidebar` - Move your pet to the right sidebar
 
 ### Settings
 
 Configure your Tamagotchi in VSCode settings:
 
+#### General Settings
+
 | Setting | Description | Default |
 |---------|-------------|---------|
-| `tamagotchi.position` | Window position: `panel`, `sidebar`, or `editor` | `panel` |
+| `tamagotchi.position` | Window position: `sidebar-left`, `sidebar-right`, `panel`, or `editor` | `sidebar-left` |
 | `tamagotchi.petName` | Your pet's name | `Tama` |
 | `tamagotchi.autoStart` | Show Tamagotchi when VSCode starts | `true` |
 | `tamagotchi.updateInterval` | How often stats decrease (ms) | `30000` |
 | `tamagotchi.theme` | Visual theme: `classic`, `neon`, `pastel`, `dark` | `classic` |
+
+#### Sprite & Color Settings
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| `tamagotchi.useCustomSprites` | Use custom SVG sprites (disable for emoji) | `true` |
+| `tamagotchi.colorPreset` | Quick color preset for your pet | `custom` |
+| `tamagotchi.petColors.primary` | Primary body color | `#ff6b9d` |
+| `tamagotchi.petColors.secondary` | Secondary/paw color | `#c44cff` |
+| `tamagotchi.petColors.accent` | Accent/highlight color | `#ffe14c` |
+| `tamagotchi.petColors.blush` | Cheek blush color | `#ffb3d9` |
+
+#### Color Presets
+
+Choose from these ready-made color schemes:
+
+| Preset | Description |
+|--------|-------------|
+| `custom` | Use your custom color settings |
+| `sakura` | Soft pink cherry blossom theme 🌸 |
+| `ocean` | Cool blue ocean depths 🌊 |
+| `sunset` | Warm orange and red sunset 🌅 |
+| `forest` | Fresh green forest vibes 🌲 |
+| `galaxy` | Deep purple space colors 🌌 |
+| `candy` | Sweet pastel candy colors 🍬 |
+| `monochrome` | Elegant grayscale look ⬜ |
 
 ## Pet Stats
 
@@ -70,6 +102,23 @@ Your pet evolves based on age (measured in "ticks"):
 3. **🐱 Child** (50-149 ticks) - Growing up!
 4. **🐯 Teen** (150-299 ticks) - Almost there
 5. **🦁 Adult** (300+ ticks) - Fully grown!
+
+## Custom Sprites
+
+VSCode Tamagotchi features hand-crafted SVG sprites for each evolution stage:
+
+- **Egg** - A mysterious glowing egg with cracks
+- **Baby** - A cute blob with an antenna
+- **Child** - An adorable creature with ears and whiskers
+- **Teen** - A cool striped pet with pointed ears
+- **Adult** - A majestic creature with a flowing mane
+
+Plus special states:
+- **Sleeping** - Curled up with ZZZs
+- **Sick** - With thermometer and sweat drops
+- **Ghost** - When your pet passes away (don't let this happen!)
+
+All sprites support custom colors via CSS variables, so you can create your own unique pet!
 
 ## Development
 
@@ -96,10 +145,11 @@ pnpm run package
 - Balance playtime with rest - too much playing exhausts your pet
 - Stats continue to decay (slowly) even when VSCode is closed
 - If your pet dies, use the Reset command to hatch a new egg
+- Try different color presets to find your favorite look!
+- Mix themes and colors for unique combinations
 
 ## License
 
 MIT License - Copyright (c) 2025 Pegasus Heavy Industries LLC
 
 See [LICENSE](LICENSE) for details.
-

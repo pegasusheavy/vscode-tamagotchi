@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="deadGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#888888"/>
+      <stop offset="100%" style="stop-color:#555555"/>
+    </linearGradient>
+  </defs>
+  <!-- Ghost body -->
+  <path d="M8 28 L8 14 Q8 6 16 6 Q24 6 24 14 L24 28 Q22 26 20 28 Q18 30 16 28 Q14 26 12 28 Q10 30 8 28"
+        fill="url(#deadGradient)" opacity="0.6"/>
+  <!-- Halo -->
+  <ellipse cx="16" cy="4" rx="6" ry="2" fill="none" stroke="var(--pet-accent, #ffe14c)" stroke-width="1.5"/>
+  <!-- X eyes -->
+  <path d="M10 13 L14 17 M10 17 L14 13" stroke="var(--pet-eyes, #1a1a2e)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M18 13 L22 17 M18 17 L22 13" stroke="var(--pet-eyes, #1a1a2e)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Open mouth (shock) -->
+  <ellipse cx="16" cy="22" rx="3" ry="2" fill="var(--pet-eyes, #1a1a2e)"/>
+  <!-- Tear -->
+  <path d="M24 16 Q26 18 25 20 Q24 22 23 20 Q22 18 24 16" fill="#4cc9ff" opacity="0.8"/>
+  <!-- Spirit wisps -->
+  <path d="M6 20 Q4 18 5 16" stroke="white" stroke-width="1" fill="none" opacity="0.4" stroke-linecap="round"/>
+  <path d="M26 18 Q28 16 27 14" stroke="white" stroke-width="1" fill="none" opacity="0.4" stroke-linecap="round"/>
+  <!-- Small sparkles (ascending) -->
+  <circle cx="10" cy="8" r="0.8" fill="white" opacity="0.5"/>
+  <circle cx="22" cy="6" r="0.6" fill="white" opacity="0.4"/>
+  <circle cx="14" cy="2" r="0.5" fill="white" opacity="0.3"/>
+</svg>
+

@@ -112,6 +112,60 @@
             "dark"
           ],
           "description": "Visual theme for your Tamagotchi"
+        },
+        "tamagotchi.petColors.primary": {
+          "type": "string",
+          "default": "#ff6b9d",
+          "format": "color",
+          "description": "Primary color of your pet (body color)"
+        },
+        "tamagotchi.petColors.secondary": {
+          "type": "string",
+          "default": "#c44cff",
+          "format": "color",
+          "description": "Secondary color of your pet (accents, paws)"
+        },
+        "tamagotchi.petColors.accent": {
+          "type": "string",
+          "default": "#ffe14c",
+          "format": "color",
+          "description": "Accent color (highlights, sparkles, mane)"
+        },
+        "tamagotchi.petColors.blush": {
+          "type": "string",
+          "default": "#ffb3d9",
+          "format": "color",
+          "description": "Blush/cheek color"
+        },
+        "tamagotchi.useCustomSprites": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use custom SVG sprites instead of emoji"
+        },
+        "tamagotchi.colorPreset": {
+          "type": "string",
+          "default": "custom",
+          "enum": [
+            "custom",
+            "sakura",
+            "ocean",
+            "sunset",
+            "forest",
+            "galaxy",
+            "candy",
+            "monochrome"
+          ],
+          "enumDescriptions": [
+            "Use your custom color settings",
+            "Soft pink cherry blossom theme",
+            "Cool blue ocean depths",
+            "Warm orange and red sunset",
+            "Fresh green forest vibes",
+            "Deep purple space colors",
+            "Sweet pastel candy colors",
+            "Elegant grayscale look"
+          ],
+          "description": "Quick color preset for your pet (overrides custom colors when not 'custom')"
         }
       }
     },

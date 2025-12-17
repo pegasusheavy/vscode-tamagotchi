@@ -30,7 +30,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (position === 'sidebar-left' || position === 'sidebar-right') {
         // Focus the sidebar view
         await vscode.commands.executeCommand('tamagotchi.sidebarView.focus');
-        
+
         // Move to appropriate sidebar location
         if (position === 'sidebar-right') {
           // Move view to the auxiliary bar (right sidebar)
@@ -44,7 +44,7 @@ export function activate(context: vscode.ExtensionContext) {
       }
     })
   );
-  
+
   // Command to move to left sidebar
   context.subscriptions.push(
     vscode.commands.registerCommand('tamagotchi.moveToLeft', async () => {
@@ -52,7 +52,7 @@ export function activate(context: vscode.ExtensionContext) {
       await vscode.commands.executeCommand('workbench.action.moveViewToPrimarySideBar');
     })
   );
-  
+
   // Command to move to right sidebar
   context.subscriptions.push(
     vscode.commands.registerCommand('tamagotchi.moveToRight', async () => {

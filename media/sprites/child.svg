@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="childGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:var(--pet-primary, #ff6b9d)"/>
+      <stop offset="100%" style="stop-color:var(--pet-secondary, #c44cff)"/>
+    </linearGradient>
+  </defs>
+  <!-- Ears -->
+  <ellipse cx="7" cy="8" rx="4" ry="5" fill="url(#childGradient)"/>
+  <ellipse cx="7" cy="8" rx="2" ry="3" fill="var(--pet-blush, #ffb3d9)"/>
+  <ellipse cx="25" cy="8" rx="4" ry="5" fill="url(#childGradient)"/>
+  <ellipse cx="25" cy="8" rx="2" ry="3" fill="var(--pet-blush, #ffb3d9)"/>
+  <!-- Head -->
+  <circle cx="16" cy="14" r="10" fill="url(#childGradient)"/>
+  <!-- Face highlight -->
+  <ellipse cx="12" cy="10" rx="4" ry="3" fill="rgba(255,255,255,0.25)"/>
+  <!-- Left eye -->
+  <ellipse cx="11" cy="13" rx="2.5" ry="3" fill="white"/>
+  <circle cx="11" cy="13" r="1.8" fill="var(--pet-eyes, #1a1a2e)"/>
+  <circle cx="10.3" cy="12.3" r="0.6" fill="white"/>
+  <!-- Right eye -->
+  <ellipse cx="21" cy="13" rx="2.5" ry="3" fill="white"/>
+  <circle cx="21" cy="13" r="1.8" fill="var(--pet-eyes, #1a1a2e)"/>
+  <circle cx="20.3" cy="12.3" r="0.6" fill="white"/>
+  <!-- Nose -->
+  <ellipse cx="16" cy="16" rx="1.5" ry="1" fill="var(--pet-blush, #ffb3d9)"/>
+  <!-- Cheeks -->
+  <ellipse cx="7" cy="16" rx="2" ry="1.5" fill="var(--pet-blush, #ffb3d9)" opacity="0.6"/>
+  <ellipse cx="25" cy="16" rx="2" ry="1.5" fill="var(--pet-blush, #ffb3d9)" opacity="0.6"/>
+  <!-- Mouth -->
+  <path d="M13 19 Q16 22 19 19" stroke="var(--pet-eyes, #1a1a2e)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Body -->
+  <ellipse cx="16" cy="26" rx="6" ry="4" fill="url(#childGradient)"/>
+  <!-- Feet -->
+  <ellipse cx="12" cy="29" rx="2.5" ry="1.5" fill="var(--pet-secondary, #c44cff)"/>
+  <ellipse cx="20" cy="29" rx="2.5" ry="1.5" fill="var(--pet-secondary, #c44cff)"/>
+  <!-- Whiskers -->
+  <line x1="3" y1="14" x2="7" y2="15" stroke="var(--pet-eyes, #1a1a2e)" stroke-width="0.8" stroke-linecap="round"/>
+  <line x1="3" y1="17" x2="7" y2="17" stroke="var(--pet-eyes, #1a1a2e)" stroke-width="0.8" stroke-linecap="round"/>
+  <line x1="25" y1="15" x2="29" y2="14" stroke="var(--pet-eyes, #1a1a2e)" stroke-width="0.8" stroke-linecap="round"/>
+  <line x1="25" y1="17" x2="29" y2="17" stroke="var(--pet-eyes, #1a1a2e)" stroke-width="0.8" stroke-linecap="round"/>
+</svg>
+
