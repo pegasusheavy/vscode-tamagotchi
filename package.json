@@ -139,7 +139,7 @@
     "@typescript-eslint/parser": "^6.13.0",
     "eslint": "^8.54.0",
     "typescript": "^5.3.0",
-    "vitest": "^1.0.0",
+    "vitest": "^4.0.16",
     "@vscode/vsce": "^2.22.0"
   },
   "repository": {
