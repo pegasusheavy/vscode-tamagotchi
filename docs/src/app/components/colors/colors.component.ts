@@ -1,5 +1,6 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, inject, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 interface ColorPreset {
@@ -8,6 +9,12 @@ interface ColorPreset {
   secondary: string;
   accent: string;
   blush: string;
+}
+
+interface SpriteData {
+  name: string;
+  path: string;
+  svg: string;
 }
 
 @Component({
@@ -32,9 +39,10 @@ interface ColorPreset {
               @for (preset of presets; track preset.name) {
                 <button
                   (click)="selectPreset(preset)"
-                  class="text-center group"
+                  class="text-center group rounded-xl p-2 transition-all"
                   [class.ring-2]="selectedPreset()?.name === preset.name"
-                  [class.ring-white]="selectedPreset()?.name === preset.name">
+                  [class.ring-white]="selectedPreset()?.name === preset.name"
+                  [class.bg-white/10]="selectedPreset()?.name === preset.name">
                   <div class="w-12 h-12 mx-auto rounded-full mb-2 transition-transform group-hover:scale-110"
                        [style.background]="'linear-gradient(135deg, ' + preset.primary + ', ' + preset.secondary + ')'">
                   </div>
@@ -85,9 +93,9 @@ interface ColorPreset {
           <div class="glass rounded-3xl p-8">
             <h3 class="text-xl font-bold mb-6 text-center">Live Preview</h3>
             <div class="grid grid-cols-3 gap-6">
-              @for (sprite of previewSprites; track sprite.name) {
+              @for (sprite of previewSprites(); track sprite.name) {
                 <div class="text-center">
-                  <div class="w-20 h-20 mx-auto mb-2"
+                  <div class="w-20 h-20 mx-auto mb-2 sprite-container"
                        [innerHTML]="getSanitizedSvg(sprite.svg)"
                        [style.--pet-primary]="currentColors().primary"
                        [style.--pet-secondary]="currentColors().secondary"
@@ -99,25 +107,27 @@ interface ColorPreset {
               }
             </div>
 
-            <div class="mt-8 text-center">
-              <div class="w-32 h-32 mx-auto animate-bounce-slow"
-                   [innerHTML]="getSanitizedSvg(adultSvg)"
-                   [style.--pet-primary]="currentColors().primary"
-                   [style.--pet-secondary]="currentColors().secondary"
-                   [style.--pet-accent]="currentColors().accent"
-                   [style.--pet-blush]="currentColors().blush">
+            @if (adultSprite()) {
+              <div class="mt-8 text-center">
+                <div class="w-32 h-32 mx-auto animate-bounce-slow sprite-container"
+                     [innerHTML]="getSanitizedSvg(adultSprite()!.svg)"
+                     [style.--pet-primary]="currentColors().primary"
+                     [style.--pet-secondary]="currentColors().secondary"
+                     [style.--pet-accent]="currentColors().accent"
+                     [style.--pet-blush]="currentColors().blush">
+                </div>
+                <p class="mt-4 text-white/60">
+                  Using: <span class="font-bold" [style.color]="currentColors().primary">{{ selectedPreset()?.name || 'Custom' }}</span>
+                </p>
               </div>
-              <p class="mt-4 text-white/60">
-                Using: <span class="font-bold" [style.color]="currentColors().primary">{{ selectedPreset()?.name || 'Custom' }}</span>
-              </p>
-            </div>
+            }
           </div>
         </div>
       </div>
     </section>
   `,
   styles: [`
-    :host ::ng-deep svg {
+    :host ::ng-deep .sprite-container svg {
       width: 100%;
       height: 100%;
     }
@@ -134,8 +144,9 @@ interface ColorPreset {
     }
   `]
 })
-export class ColorsComponent {
-  constructor(private sanitizer: DomSanitizer) {}
+export class ColorsComponent implements OnInit {
+  private sanitizer = inject(DomSanitizer);
+  private http = inject(HttpClient);
 
   presets: ColorPreset[] = [
     { name: 'Default', primary: '#ff6b9d', secondary: '#c44cff', accent: '#ffe14c', blush: '#ffb3d9' },
@@ -175,14 +186,43 @@ export class ColorsComponent {
 }`;
   });
 
-  previewSprites = [
-    { name: 'Egg', svg: this.eggSvg },
-    { name: 'Baby', svg: this.babySvg },
-    { name: 'Child', svg: this.childSvg },
-    { name: 'Teen', svg: this.teenSvg },
-    { name: 'Sleeping', svg: this.sleepingSvg },
-    { name: 'Dirty', svg: this.dirtySvg },
+  previewSprites = signal<SpriteData[]>([]);
+  adultSprite = signal<SpriteData | null>(null);
+
+  private spriteInfo = [
+    { name: 'Egg', path: 'sprites/egg.svg' },
+    { name: 'Baby', path: 'sprites/baby.svg' },
+    { name: 'Child', path: 'sprites/child.svg' },
+    { name: 'Teen', path: 'sprites/teen.svg' },
+    { name: 'Sleeping', path: 'sprites/sleeping.svg' },
+    { name: 'Dirty', path: 'sprites/dirty.svg' },
   ];
+
+  ngOnInit() {
+    this.loadSprites();
+  }
+
+  private async loadSprites() {
+    const sprites: SpriteData[] = [];
+    for (const info of this.spriteInfo) {
+      const svg = await this.loadSvg(info.path);
+      sprites.push({ ...info, svg });
+    }
+    this.previewSprites.set(sprites);
+
+    // Load adult sprite for main preview
+    const adultSvg = await this.loadSvg('sprites/adult.svg');
+    this.adultSprite.set({ name: 'Adult', path: 'sprites/adult.svg', svg: adultSvg });
+  }
+
+  private loadSvg(path: string): Promise<string> {
+    return new Promise((resolve) => {
+      this.http.get(path, { responseType: 'text' }).subscribe({
+        next: (svg) => resolve(svg),
+        error: () => resolve('')
+      });
+    });
+  }
 
   selectPreset(preset: ColorPreset) {
     this.selectedPreset.set(preset);
@@ -196,34 +236,4 @@ export class ColorsComponent {
   getSanitizedSvg(svg: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(svg);
   }
-
-  // SVG getters (simplified versions)
-  get eggSvg() {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="eg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--pet-primary)"/><stop offset="100%" stop-color="var(--pet-secondary)"/></linearGradient></defs><ellipse cx="16" cy="18" rx="10" ry="12" fill="url(#eg)"/><ellipse cx="12" cy="12" rx="3" ry="4" fill="rgba(255,255,255,0.4)"/><path d="M10 14 L12 11 L14 15 L16 10 L18 14" stroke="var(--pet-accent)" stroke-width="1.5" fill="none"/></svg>`;
-  }
-
-  get babySvg() {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--pet-primary)"/><stop offset="100%" stop-color="var(--pet-secondary)"/></linearGradient></defs><ellipse cx="16" cy="18" rx="11" ry="10" fill="url(#bg)"/><ellipse cx="11" cy="16" rx="2.5" ry="3" fill="white"/><circle cx="11" cy="16" r="1.5" fill="#1a1a2e"/><ellipse cx="21" cy="16" rx="2.5" ry="3" fill="white"/><circle cx="21" cy="16" r="1.5" fill="#1a1a2e"/><ellipse cx="7" cy="20" rx="2" ry="1.5" fill="var(--pet-blush)" opacity="0.7"/><ellipse cx="25" cy="20" rx="2" ry="1.5" fill="var(--pet-blush)" opacity="0.7"/><path d="M13 22 Q16 25 19 22" stroke="#1a1a2e" stroke-width="1.5" fill="none"/><circle cx="12" cy="6" r="1.5" fill="var(--pet-accent)"/></svg>`;
-  }
-
-  get childSvg() {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--pet-primary)"/><stop offset="100%" stop-color="var(--pet-secondary)"/></linearGradient></defs><ellipse cx="7" cy="8" rx="4" ry="5" fill="url(#cg)"/><ellipse cx="7" cy="8" rx="2" ry="3" fill="var(--pet-blush)"/><ellipse cx="25" cy="8" rx="4" ry="5" fill="url(#cg)"/><circle cx="16" cy="14" r="10" fill="url(#cg)"/><ellipse cx="11" cy="13" rx="2.5" ry="3" fill="white"/><circle cx="11" cy="13" r="1.8" fill="#1a1a2e"/><ellipse cx="21" cy="13" rx="2.5" ry="3" fill="white"/><circle cx="21" cy="13" r="1.8" fill="#1a1a2e"/><ellipse cx="16" cy="16" rx="1.5" ry="1" fill="var(--pet-blush)"/><path d="M13 19 Q16 22 19 19" stroke="#1a1a2e" stroke-width="1.5" fill="none"/></svg>`;
-  }
-
-  get teenSvg() {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--pet-primary)"/><stop offset="100%" stop-color="var(--pet-secondary)"/></linearGradient></defs><path d="M5 12 L8 3 L11 10" fill="url(#tg)"/><path d="M21 10 L24 3 L27 12" fill="url(#tg)"/><circle cx="16" cy="14" r="10" fill="url(#tg)"/><path d="M11 7 L13 10 M15 6 L16 10 M19 7 L21 10" stroke="var(--pet-accent)" stroke-width="1.5"/><ellipse cx="11" cy="13" rx="3" ry="3.5" fill="white"/><circle cx="11" cy="13" r="2" fill="#1a1a2e"/><ellipse cx="21" cy="13" rx="3" ry="3.5" fill="white"/><circle cx="21" cy="13" r="2" fill="#1a1a2e"/><ellipse cx="6" cy="16" rx="2" ry="1.5" fill="var(--pet-blush)" opacity="0.7"/><path d="M12 20 Q16 23 20 20" stroke="#1a1a2e" stroke-width="1.5" fill="none"/></svg>`;
-  }
-
-  get adultSvg() {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--pet-primary)"/><stop offset="100%" stop-color="var(--pet-secondary)"/></linearGradient><radialGradient id="mg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="var(--pet-accent)"/><stop offset="100%" stop-color="var(--pet-primary)"/></radialGradient></defs><path d="M4 16 L6 8 L10 14 L12 6 L16 12 L20 6 L22 14 L26 8 L28 16" fill="url(#mg)"/><circle cx="16" cy="16" r="10" fill="url(#ag)"/><path d="M14 7 L16 4 L18 7 L16 9 Z" fill="var(--pet-accent)"/><ellipse cx="11" cy="14" rx="3" ry="3.5" fill="white"/><circle cx="11" cy="14" r="2.2" fill="#1a1a2e"/><ellipse cx="21" cy="14" rx="3" ry="3.5" fill="white"/><circle cx="21" cy="14" r="2.2" fill="#1a1a2e"/><ellipse cx="16" cy="17" rx="2" ry="1.5" fill="var(--pet-blush)"/><path d="M12 21 Q16 24 20 21" stroke="#1a1a2e" stroke-width="2" fill="none"/><ellipse cx="16" cy="26" rx="3" ry="2" fill="var(--pet-accent)"/></svg>`;
-  }
-
-  get sleepingSvg() {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--pet-primary)"/><stop offset="100%" stop-color="var(--pet-secondary)"/></linearGradient></defs><ellipse cx="16" cy="20" rx="12" ry="8" fill="url(#sg)"/><circle cx="12" cy="14" r="8" fill="url(#sg)"/><path d="M7 13 Q9 11 11 13 M13 13 Q15 11 17 13" stroke="#1a1a2e" stroke-width="1.5" fill="none"/><ellipse cx="5" cy="15" rx="1.5" ry="1" fill="var(--pet-blush)" opacity="0.7"/><text x="22" y="8" font-size="5" fill="var(--pet-accent)">Z</text><text x="25" y="5" font-size="4" fill="var(--pet-accent)" opacity="0.7">Z</text></svg>`;
-  }
-
-  get dirtySvg() {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="dg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--pet-primary)"/><stop offset="100%" stop-color="var(--pet-secondary)"/></linearGradient></defs><ellipse cx="16" cy="18" rx="9" ry="8" fill="url(#dg)" opacity="0.85"/><circle cx="16" cy="12" r="8" fill="url(#dg)" opacity="0.85"/><ellipse cx="12" cy="11" rx="2.5" ry="2.5" fill="white"/><circle cx="12" cy="11" r="1.5" fill="#1a1a2e"/><ellipse cx="20" cy="11" rx="2.5" ry="2.5" fill="white"/><circle cx="20" cy="11" r="1.5" fill="#1a1a2e"/><path d="M13 16 Q16 14 19 16" stroke="#1a1a2e" stroke-width="1.2" fill="none"/><path d="M4 14 Q5 12 4 10" stroke="#98D982" stroke-width="1" fill="none" opacity="0.7"/><ellipse cx="5" cy="24" rx="2.5" ry="1.5" fill="#6B4423"/><ellipse cx="27" cy="25" rx="2" ry="1.2" fill="#6B4423"/></svg>`;
-  }
 }
-

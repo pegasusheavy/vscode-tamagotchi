@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="eggGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:var(--pet-primary, #ff6b9d)"/>
+      <stop offset="100%" style="stop-color:var(--pet-secondary, #c44cff)"/>
+    </linearGradient>
+  </defs>
+  <!-- Egg body -->
+  <ellipse cx="16" cy="18" rx="10" ry="12" fill="url(#eggGradient)"/>
+  <!-- Highlight -->
+  <ellipse cx="12" cy="12" rx="3" ry="4" fill="rgba(255,255,255,0.4)"/>
+  <!-- Crack pattern -->
+  <path d="M10 14 L12 11 L14 15 L16 10 L18 14 L20 12 L22 15"
+        stroke="var(--pet-accent, #ffffff)" stroke-width="1.5" fill="none"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Sparkles -->
+  <circle cx="6" cy="10" r="1" fill="var(--pet-accent, #ffffff)" opacity="0.8"/>
+  <circle cx="26" cy="14" r="1" fill="var(--pet-accent, #ffffff)" opacity="0.6"/>
+  <circle cx="8" cy="24" r="0.8" fill="var(--pet-accent, #ffffff)" opacity="0.5"/>
+</svg>
+

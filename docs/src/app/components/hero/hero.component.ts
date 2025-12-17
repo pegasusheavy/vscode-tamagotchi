@@ -1,4 +1,12 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+
+interface SpriteData {
+  name: string;
+  path: string;
+  svg: string;
+}
 
 @Component({
   selector: 'app-hero',
@@ -26,7 +34,7 @@ import { Component, signal } from '@angular/core';
           </div>
         </div>
 
-        <!-- Animated Pet Display -->
+        <!-- Animated Pet Display with Real SVG -->
         <div class="pet-container flex justify-center">
           <div class="pet-screen glass rounded-3xl p-8 w-80 animate-pulse-glow">
             <div class="text-center mb-4">
@@ -35,10 +43,22 @@ import { Component, signal } from '@angular/core';
             </div>
 
             <div class="bg-gradient-to-br from-purple-900/50 to-blue-900/50 rounded-2xl p-8 mb-6">
-              <div class="text-8xl text-center animate-bounce-slow cursor-pointer hover:animate-wiggle transition-all"
-                   (click)="cyclePet()">
-                {{ currentEmoji() }}
-              </div>
+              @if (currentSprite()) {
+                <div class="w-24 h-24 mx-auto cursor-pointer hover:scale-110 transition-transform sprite-container"
+                     [class.animate-bounce-slow]="!isAnimating()"
+                     [class.animate-wiggle]="isAnimating()"
+                     [innerHTML]="getSanitizedSvg(currentSprite()!.svg)"
+                     [style.--pet-primary]="colors().primary"
+                     [style.--pet-secondary]="colors().secondary"
+                     [style.--pet-accent]="colors().accent"
+                     [style.--pet-blush]="colors().blush"
+                     (click)="cyclePet()">
+                </div>
+              } @else {
+                <div class="text-8xl text-center animate-bounce-slow cursor-pointer" (click)="cyclePet()">
+                  {{ fallbackEmoji() }}
+                </div>
+              }
               <div class="text-center mt-4 text-white/60">{{ mood() }}</div>
             </div>
 
@@ -47,7 +67,7 @@ import { Component, signal } from '@angular/core';
                 <div class="flex items-center gap-3">
                   <span class="w-8">{{ stat.icon }}</span>
                   <div class="stat-bar flex-1 h-3">
-                    <div class="stat-fill" [style.width.%]="stat.value"
+                    <div class="stat-fill transition-all duration-300" [style.width.%]="stat.value"
                          [style.background]="stat.gradient"></div>
                   </div>
                   <span class="text-sm text-white/60 w-10">{{ stat.value }}%</span>
@@ -66,17 +86,43 @@ import { Component, signal } from '@angular/core';
       </div>
     </section>
   `,
-  styles: []
+  styles: [`
+    :host ::ng-deep .sprite-container svg {
+      width: 100%;
+      height: 100%;
+    }
+  `]
 })
-export class HeroComponent {
+export class HeroComponent implements OnInit {
+  private sanitizer = inject(DomSanitizer);
+  private http = inject(HttpClient);
+
   petName = signal('Tama');
   stage = signal('Adult');
   mood = signal('Feeling happy!');
-  currentEmoji = signal('🦁');
+  isAnimating = signal(false);
+  fallbackEmoji = signal('🦁');
+
+  colors = signal({
+    primary: '#ff6b9d',
+    secondary: '#c44cff',
+    accent: '#ffe14c',
+    blush: '#ffb3d9'
+  });
 
   private petIndex = 4;
-  private pets = ['🥚', '🐣', '🐱', '🐯', '🦁'];
-  private stages = ['Egg', 'Baby', 'Child', 'Teen', 'Adult'];
+  private sprites: SpriteData[] = [];
+  currentSprite = signal<SpriteData | null>(null);
+
+  private spriteInfo = [
+    { name: 'Egg', path: 'sprites/egg.svg', stage: 'Egg' },
+    { name: 'Baby', path: 'sprites/baby.svg', stage: 'Baby' },
+    { name: 'Child', path: 'sprites/child.svg', stage: 'Child' },
+    { name: 'Teen', path: 'sprites/teen.svg', stage: 'Teen' },
+    { name: 'Adult', path: 'sprites/adult.svg', stage: 'Adult' },
+  ];
+
+  private fallbackEmojis = ['🥚', '🐣', '🐱', '🐯', '🦁'];
 
   stats = signal([
     { name: 'hunger', icon: '🍖', value: 85, gradient: 'linear-gradient(90deg, #ff6b6b, #ff6b9d)' },
@@ -85,19 +131,51 @@ export class HeroComponent {
     { name: 'health', icon: '❤️', value: 95, gradient: 'linear-gradient(90deg, #ff6b9d, #c44cff)' },
   ]);
 
+  ngOnInit() {
+    this.loadSprites();
+  }
+
+  private async loadSprites() {
+    for (const info of this.spriteInfo) {
+      const svg = await this.loadSvg(info.path);
+      this.sprites.push({ name: info.name, path: info.path, svg });
+    }
+    // Set initial sprite to Adult
+    this.currentSprite.set(this.sprites[4]);
+  }
+
+  private loadSvg(path: string): Promise<string> {
+    return new Promise((resolve) => {
+      this.http.get(path, { responseType: 'text' }).subscribe({
+        next: (svg) => resolve(svg),
+        error: () => resolve('')
+      });
+    });
+  }
+
+  getSanitizedSvg(svg: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(svg);
+  }
+
   cyclePet() {
-    this.petIndex = (this.petIndex + 1) % this.pets.length;
-    this.currentEmoji.set(this.pets[this.petIndex]);
-    this.stage.set(this.stages[this.petIndex]);
+    this.petIndex = (this.petIndex + 1) % this.sprites.length;
+    if (this.sprites[this.petIndex]) {
+      this.currentSprite.set(this.sprites[this.petIndex]);
+      this.stage.set(this.spriteInfo[this.petIndex].stage);
+    }
+    this.fallbackEmoji.set(this.fallbackEmojis[this.petIndex]);
+    this.animate();
   }
 
   feed() {
+    this.animate();
     this.mood.set('Yummy! 🍖');
     this.updateStat('hunger', 15);
     setTimeout(() => this.mood.set('Feeling happy!'), 1500);
   }
 
   play() {
+    this.animate();
     this.mood.set('So fun! 🎾');
     this.updateStat('happiness', 20);
     this.updateStat('energy', -10);
@@ -105,15 +183,22 @@ export class HeroComponent {
   }
 
   sleep() {
+    this.animate();
     this.mood.set('Zzz... 💤');
     this.updateStat('energy', 25);
     setTimeout(() => this.mood.set('Wide awake! ☀️'), 2000);
   }
 
   clean() {
+    this.animate();
     this.mood.set('Sparkly clean! ✨');
     this.updateStat('health', 10);
     setTimeout(() => this.mood.set('Feeling happy!'), 1500);
+  }
+
+  private animate() {
+    this.isAnimating.set(true);
+    setTimeout(() => this.isAnimating.set(false), 500);
   }
 
   private updateStat(name: string, delta: number) {
@@ -124,4 +209,3 @@ export class HeroComponent {
     );
   }
 }
-
