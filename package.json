@@ -3,7 +3,7 @@
   "displayName": "VSCode Tamagotchi",
   "description": "A virtual Tamagotchi pet that lives in your VSCode/Cursor editor",
   "version": "0.1.0",
-  "publisher": "pegasus-heavy-industries",
+  "publisher": "pegasus-heavy-industries-llc",
   "license": "MIT",
   "engines": {
     "vscode": "^1.107.0"
