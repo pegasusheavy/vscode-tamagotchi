@@ -378,11 +378,11 @@ const EMOJI_SPRITES = {
 function getSvgSprite(state: TamagotchiState): string {
   const { mood, stats, currentAction } = state;
 
-  if (!stats.isAlive) return SVG_SPRITES.dead;
-  if (currentAction === 'sleeping' || mood === 'sleeping') return SVG_SPRITES.sleeping;
-  if (mood === 'sick') return SVG_SPRITES.sick;
+  if (!stats.isAlive) {return SVG_SPRITES.dead;}
+  if (currentAction === 'sleeping' || mood === 'sleeping') {return SVG_SPRITES.sleeping;}
+  if (mood === 'sick') {return SVG_SPRITES.sick;}
   // Show dirty sprite when cleanliness drops below 30%
-  if (stats.cleanliness < 30) return SVG_SPRITES.dirty;
+  if (stats.cleanliness < 30) {return SVG_SPRITES.dirty;}
 
   return SVG_SPRITES[stats.stage as keyof typeof SVG_SPRITES] || SVG_SPRITES.baby;
 }

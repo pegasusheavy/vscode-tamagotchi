@@ -6,9 +6,18 @@ src/**
 vsc-extension-quickstart.md
 **/tsconfig.json
 **/.eslintrc.json
+eslint.config.mjs
+commitlint.config.mjs
+.husky/**
 **/*.map
 **/*.ts
 !media/**
 node_modules/**
 .pnpm-store/**
+docs/**
+.github/**
+pnpm-lock.yaml
+*.vsix
+.cursor/**
+CHANGELOG.md
 

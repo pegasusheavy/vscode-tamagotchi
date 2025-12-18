@@ -112,10 +112,10 @@ export class Tamagotchi {
     // Health degrades if other stats are very low
     let healthChange = 0;
 
-    if (stats.hunger < 20) healthChange -= 2;
-    if (stats.happiness < 20) healthChange -= 1;
-    if (stats.cleanliness < 20) healthChange -= 1;
-    if (stats.energy < 10) healthChange -= 1;
+    if (stats.hunger < 20) {healthChange -= 2;}
+    if (stats.happiness < 20) {healthChange -= 1;}
+    if (stats.cleanliness < 20) {healthChange -= 1;}
+    if (stats.energy < 10) {healthChange -= 1;}
 
     // Health slowly recovers if stats are good
     if (stats.hunger > 60 && stats.happiness > 60 && stats.cleanliness > 60) {
@@ -175,7 +175,7 @@ export class Tamagotchi {
   }
 
   tick(): void {
-    if (!this.state.stats.isAlive) return;
+    if (!this.state.stats.isAlive) {return;}
 
     const { stats } = this.state;
 
