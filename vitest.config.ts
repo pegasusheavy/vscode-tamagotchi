@@ -8,6 +8,7 @@ export default defineConfig({
       '**/docs/**',
       '**/.{idea,git,cache,output,temp}/**',
     ],
+    passWithNoTests: true,
   },
 });
 
