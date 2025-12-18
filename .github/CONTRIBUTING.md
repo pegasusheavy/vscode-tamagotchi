@@ -22,8 +22,8 @@ This project and everyone participating in it is governed by our [Code of Conduc
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18 or higher)
-- [pnpm](https://pnpm.io/) (v8 or higher)
+- [Node.js](https://nodejs.org/) (v20 or higher)
+- [pnpm](https://pnpm.io/) (v9 or higher)
 - [VSCode](https://code.visualstudio.com/) or [Cursor](https://cursor.sh/)
 - [Git](https://git-scm.com/)
 
@@ -32,27 +32,34 @@ This project and everyone participating in it is governed by our [Code of Conduc
 1. **Fork the repository** on GitHub
 
 2. **Clone your fork**:
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/vscode-tamagotchi.git
    cd vscode-tamagotchi
    ```
 
 3. **Add upstream remote**:
+
    ```bash
    git remote add upstream https://github.com/pegasusheavy/vscode-tamagotchi.git
    ```
 
 4. **Install dependencies**:
+
    ```bash
    pnpm install
    ```
 
+   This will also set up Husky git hooks automatically.
+
 5. **Compile the extension**:
+
    ```bash
    pnpm run compile
    ```
 
 6. **Open in VSCode**:
+
    ```bash
    code .
    ```
@@ -66,8 +73,11 @@ This project and everyone participating in it is governed by our [Code of Conduc
 ```
 vscode-tamagotchi/
 ├── .github/              # GitHub workflows and templates
-├── docs/                 # GitHub Pages documentation site
-├── media/                # Static assets (icons, images)
+├── .husky/               # Git hooks (pre-commit, pre-push, commit-msg)
+├── docs/                 # GitHub Pages documentation site (Angular)
+├── media/
+│   ├── icon.svg          # Extension icon
+│   └── sprites/          # SVG pet sprites (egg, baby, child, etc.)
 ├── out/                  # Compiled JavaScript (generated)
 ├── src/
 │   ├── extension.ts      # Extension entry point
@@ -75,8 +85,12 @@ vscode-tamagotchi/
 │   ├── tamagotchiPanel.ts    # Webview panel implementation
 │   ├── sidebarProvider.ts    # Sidebar webview provider
 │   └── webviewContent.ts     # HTML/CSS/JS for the UI
+├── eslint.config.mjs     # ESLint 9 flat config
+├── commitlint.config.mjs # Commit message linting rules
+├── vitest.config.mts     # Test configuration
 ├── package.json          # Extension manifest
 ├── tsconfig.json         # TypeScript configuration
+├── CHANGELOG.md          # Version history
 └── README.md             # Project documentation
 ```
 
@@ -104,6 +118,7 @@ type(scope): description
 ```
 
 **Types:**
+
 - `feat`: A new feature
 - `fix`: A bug fix
 - `docs`: Documentation changes
@@ -114,10 +129,28 @@ type(scope): description
 - `chore`: Maintenance tasks
 
 **Examples:**
+
 ```
 feat(pet): add sleeping animation
 fix(stats): correct hunger decay rate
 docs(readme): update installation instructions
+```
+
+### Git Hooks
+
+This project uses [Husky](https://typicode.github.io/husky/) to enforce quality standards:
+
+| Hook           | What it does                                          |
+| -------------- | ----------------------------------------------------- |
+| **pre-commit** | Runs lint-staged (ESLint + Prettier on staged files)  |
+| **pre-push**   | Compiles TypeScript, runs linter, and runs tests      |
+| **commit-msg** | Validates commit messages follow Conventional Commits |
+
+If a hook fails, fix the issues before committing/pushing. To bypass hooks in emergencies (not recommended):
+
+```bash
+git commit --no-verify -m "message"
+git push --no-verify
 ```
 
 ## Coding Guidelines
@@ -185,11 +218,11 @@ pnpm test -- --coverage
 - Mock VSCode API when necessary
 
 ```typescript
-import { describe, it, expect } from 'vitest';
-import { Tamagotchi } from './tamagotchi';
+import { describe, it, expect } from "vitest";
+import { Tamagotchi } from "./tamagotchi";
 
-describe('Tamagotchi', () => {
-  it('should increase hunger when fed', () => {
+describe("Tamagotchi", () => {
+  it("should increase hunger when fed", () => {
     // Test implementation
   });
 });
@@ -198,12 +231,14 @@ describe('Tamagotchi', () => {
 ## Submitting Changes
 
 1. **Update your fork**:
+
    ```bash
    git fetch upstream
    git rebase upstream/main
    ```
 
 2. **Push your changes**:
+
    ```bash
    git push origin your-branch-name
    ```
@@ -252,6 +287,7 @@ describe('Tamagotchi', () => {
 ## Recognition
 
 Contributors will be recognized in the following ways:
+
 - Listed in release notes for their contributions
 - Added to the Contributors section in README
 
@@ -264,4 +300,3 @@ Contributors will be recognized in the following ways:
 - 🐛 File an [Issue](https://github.com/pegasusheavy/vscode-tamagotchi/issues)
 
 Thank you for helping make VSCode Tamagotchi better! 🦁
-
