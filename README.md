@@ -150,7 +150,7 @@ pnpm run package
 
 - Don't let any stat drop below 20% or your pet's health will suffer
 - Balance playtime with rest - too much playing exhausts your pet
-- Stats continue to decay (slowly) even when VSCode is closed
+- Your pet's lifecycle pauses when VSCode is closed - no decay while you're away!
 - If your pet dies, use the Reset command to hatch a new egg
 - Try different color presets to find your favorite look!
 - Mix themes and colors for unique combinations

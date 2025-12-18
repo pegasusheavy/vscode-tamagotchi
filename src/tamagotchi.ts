@@ -71,20 +71,9 @@ export class Tamagotchi {
       return null;
     }
 
-    // Apply time-based decay for time passed while VSCode was closed
-    const timePassed = Date.now() - saved.lastUpdate;
-    const ticksPassed = Math.floor(timePassed / 60000); // 1 tick per minute
-
-    if (ticksPassed > 0 && saved.stats.isAlive) {
-      saved.stats.hunger = Math.max(0, saved.stats.hunger - ticksPassed * 0.5);
-      saved.stats.happiness = Math.max(0, saved.stats.happiness - ticksPassed * 0.3);
-      saved.stats.energy = Math.min(100, saved.stats.energy + ticksPassed * 0.2);
-      saved.stats.cleanliness = Math.max(0, saved.stats.cleanliness - ticksPassed * 0.2);
-      saved.lastUpdate = Date.now();
-
-      this.recalculateHealth(saved.stats);
-      this.updateMood(saved);
-    }
+    // Pet lifecycle is paused when VSCode is closed
+    // Stats are preserved exactly as they were
+    saved.lastUpdate = Date.now();
 
     return saved;
   }

@@ -219,7 +219,7 @@ describe('Tamagotchi', () => {
 
       const initialCleanliness = tamagotchi.getState().stats.cleanliness;
       expect(initialCleanliness).toBeLessThan(95);
-      
+
       const result = tamagotchi.clean();
 
       expect(result.success).toBe(true);
