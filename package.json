@@ -231,8 +231,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/PegasusHeavyIndustries/vscode-tamagotchi"
+    "url": "git+https://github.com/pegasusheavy/vscode-tamagotchi.git"
   },
+  "bugs": {
+    "url": "https://github.com/pegasusheavy/vscode-tamagotchi/issues"
+  },
+  "homepage": "https://pegasusheavy.github.io/vscode-tamagotchi",
   "lint-staged": {
     "src/**/*.ts": [
       "eslint --fix"
