@@ -8,6 +8,7 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 eslint.config.mjs
 commitlint.config.mjs
+vitest.config.ts
 .husky/**
 **/*.map
 **/*.ts
