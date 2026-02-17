@@ -1,0 +1,42 @@
+# VSCode Tamagotchi
+
+> A virtual Tamagotchi pet that lives in your VSCode/Cursor editor.
+
+A VSCode extension that lets you raise a virtual Tamagotchi pet while you code. Your pet evolves through 5 stages (Egg, Baby, Child, Teen, Adult), has stats you must manage (hunger, happiness, energy, cleanliness, health), and features custom SVG sprites with fully customizable colors. The extension supports multiple themes, configurable positioning within the editor, and persistent state across sessions.
+
+## Links
+
+- [Documentation](https://pegasusheavy.github.io/vscode-tamagotchi/)
+- [GitHub Repository](https://github.com/pegasusheavy/vscode-tamagotchi)
+
+## Key Features
+
+- Raise a pet from egg through 5 evolution stages: Egg, Baby, Child, Teen, Adult
+- Custom hand-crafted SVG sprites for each stage with special states (sleeping, sick, ghost)
+- Fully customizable pet colors with 7 built-in color presets
+- 5 pet stats to manage: hunger, happiness, energy, cleanliness, health
+- Actions: feed, play, sleep, and clean your pet via Command Palette
+- 4 visual themes: classic, neon, pastel, dark
+- Configurable position: left sidebar, right sidebar, panel, or editor tab
+- Persistent state across VSCode sessions
+- Auto-start option to show your pet when VSCode launches
+
+## Installation
+
+Search for "VSCode Tamagotchi" in the Extensions marketplace, or build from source:
+
+```bash
+git clone https://github.com/pegasusheavy/vscode-tamagotchi.git
+cd vscode-tamagotchi
+pnpm install && pnpm run compile && pnpm run package
+```
+
+## Quick Start
+
+Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) and run:
+
+- `Tamagotchi: Show Tamagotchi` - Open the Tamagotchi window
+- `Tamagotchi: Feed Tamagotchi` - Feed your pet
+- `Tamagotchi: Play with Tamagotchi` - Play with your pet
+- `Tamagotchi: Put Tamagotchi to Sleep` - Toggle sleep mode
+- `Tamagotchi: Clean Tamagotchi` - Clean your pet
