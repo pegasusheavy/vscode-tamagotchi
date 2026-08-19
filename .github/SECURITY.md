@@ -21,7 +21,7 @@ We take the security of VSCode Tamagotchi seriously. If you believe you have fou
 ### How to Report
 
 1. **Email**: Contact the maintainers through GitHub's private vulnerability reporting feature
-2. **GitHub Security Advisories**: Use [GitHub's Security Advisory feature](https://github.com/pegasusheavy/vscode-tamagotchi/security/advisories/new)
+2. **GitHub Security Advisories**: Use [GitHub's Security Advisory feature](https://github.com/quinnjr/vscode-tamagotchi/security/advisories/new)
 
 ### What to Include
 

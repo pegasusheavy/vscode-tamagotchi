@@ -43,5 +43,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Vitest for testing
 - Comprehensive GitHub templates (issues, PRs, security policy)
 
-[Unreleased]: https://github.com/PegasusHeavyIndustries/vscode-tamagotchi/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/PegasusHeavyIndustries/vscode-tamagotchi/releases/tag/v0.1.0
+[Unreleased]: https://github.com/quinnjr/vscode-tamagotchi/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/quinnjr/vscode-tamagotchi/releases/tag/v0.1.0

@@ -1,12 +1,12 @@
 # VSCode Tamagotchi 🥚
 
-[![CI](https://github.com/pegasusheavy/vscode-tamagotchi/actions/workflows/ci.yml/badge.svg)](https://github.com/pegasusheavy/vscode-tamagotchi/actions/workflows/ci.yml)
+[![CI](https://github.com/quinnjr/vscode-tamagotchi/actions/workflows/ci.yml/badge.svg)](https://github.com/quinnjr/vscode-tamagotchi/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/pegasusheavy/vscode-tamagotchi/blob/main/.github/CONTRIBUTING.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/quinnjr/vscode-tamagotchi/blob/main/.github/CONTRIBUTING.md)
 
 A virtual Tamagotchi pet that lives in your VSCode/Cursor editor! Take care of your digital companion while you code.
 
-**[📖 Documentation](https://pegasusheavy.github.io/vscode-tamagotchi/)** · **[🐛 Report Bug](https://github.com/pegasusheavy/vscode-tamagotchi/issues/new?template=bug_report.yml)** · **[✨ Request Feature](https://github.com/pegasusheavy/vscode-tamagotchi/issues/new?template=feature_request.yml)**
+**[📖 Documentation](https://quinnjr.github.io/vscode-tamagotchi/)** · **[🐛 Report Bug](https://github.com/quinnjr/vscode-tamagotchi/issues/new?template=bug_report.yml)** · **[✨ Request Feature](https://github.com/quinnjr/vscode-tamagotchi/issues/new?template=feature_request.yml)**
 
 ## Features
 
@@ -167,24 +167,18 @@ Contributions are welcome! Please read our [Contributing Guide](.github/CONTRIBU
 
 ## Support
 
-- 💬 [GitHub Discussions](https://github.com/pegasusheavy/vscode-tamagotchi/discussions) - Ask questions, share ideas
-- 🐛 [GitHub Issues](https://github.com/pegasusheavy/vscode-tamagotchi/issues) - Report bugs, request features
-- 📖 [Documentation](https://pegasusheavy.github.io/vscode-tamagotchi/) - Browse the docs site
-
-## Sponsor
-
-If you enjoy this extension, consider supporting development:
-
-[![Patreon](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/c/PegasusHeavyIndustries)
+- 💬 [GitHub Discussions](https://github.com/quinnjr/vscode-tamagotchi/discussions) - Ask questions, share ideas
+- 🐛 [GitHub Issues](https://github.com/quinnjr/vscode-tamagotchi/issues) - Report bugs, request features
+- 📖 [Documentation](https://quinnjr.github.io/vscode-tamagotchi/) - Browse the docs site
 
 ## License
 
-MIT License - Copyright (c) 2025 Pegasus Heavy Industries LLC
+MIT License - Copyright (c) 2025 Joseph R. Quinn
 
 See [LICENSE](LICENSE) for details.
 
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/pegasusheavy">Pegasus Heavy Industries</a>
+  Made with ❤️ by <a href="https://github.com/quinnjr">Joseph R. Quinn</a>
 </p>
