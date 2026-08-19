@@ -3,16 +3,16 @@
 # They will be requested for review when someone opens a pull request.
 
 # Default owners for everything
-* @pegasusheavy
+* @quinnjr
 
 # Specific paths can have different owners
 # /docs/ @documentation-team
 # /src/ @core-team
 
 # GitHub Actions workflows
-/.github/workflows/ @pegasusheavy
+/.github/workflows/ @quinnjr
 
 # Extension manifest and configuration
-/package.json @pegasusheavy
-/tsconfig.json @pegasusheavy
+/package.json @quinnjr
+/tsconfig.json @quinnjr
 

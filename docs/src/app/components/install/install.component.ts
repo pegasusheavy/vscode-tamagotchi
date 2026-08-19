@@ -12,7 +12,7 @@ export class InstallComponent {
       number: 1,
       title: 'Clone the Repository',
       gradient: 'linear-gradient(135deg, var(--tama-pink), var(--tama-purple))',
-      code: ['<span class="text-[var(--tama-mint)]">git clone</span> <span class="text-white/80">https://github.com/pegasusheavy/vscode-tamagotchi.git</span>']
+      code: ['<span class="text-[var(--tama-mint)]">git clone</span> <span class="text-white/80">https://github.com/quinnjr/vscode-tamagotchi.git</span>']
     },
     {
       number: 2,

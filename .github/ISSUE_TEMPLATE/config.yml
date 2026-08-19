@@ -1,9 +1,9 @@
 blank_issues_enabled: false
 contact_links:
   - name: 📖 Documentation
-    url: https://pegasusheavy.github.io/vscode-tamagotchi/
+    url: https://quinnjr.github.io/vscode-tamagotchi/
     about: Check out the documentation and demo
   - name: 💬 Discussions
-    url: https://github.com/pegasusheavy/vscode-tamagotchi/discussions
+    url: https://github.com/quinnjr/vscode-tamagotchi/discussions
     about: Ask questions and share ideas with the community
 

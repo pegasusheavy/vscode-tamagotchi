@@ -6,8 +6,8 @@ A VSCode extension that lets you raise a virtual Tamagotchi pet while you code. 
 
 ## Links
 
-- [Documentation](https://pegasusheavy.github.io/vscode-tamagotchi/)
-- [GitHub Repository](https://github.com/pegasusheavy/vscode-tamagotchi)
+- [Documentation](https://quinnjr.github.io/vscode-tamagotchi/)
+- [GitHub Repository](https://github.com/quinnjr/vscode-tamagotchi)
 
 ## Key Features
 
@@ -26,7 +26,7 @@ A VSCode extension that lets you raise a virtual Tamagotchi pet while you code. 
 Search for "VSCode Tamagotchi" in the Extensions marketplace, or build from source:
 
 ```bash
-git clone https://github.com/pegasusheavy/vscode-tamagotchi.git
+git clone https://github.com/quinnjr/vscode-tamagotchi.git
 cd vscode-tamagotchi
 pnpm install && pnpm run compile && pnpm run package
 ```

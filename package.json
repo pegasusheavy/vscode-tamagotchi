@@ -3,7 +3,7 @@
   "displayName": "VSCode Tamagotchi",
   "description": "A virtual Tamagotchi pet that lives in your VSCode/Cursor editor",
   "version": "0.1.0",
-  "publisher": "pegasus-heavy-industries-llc",
+  "publisher": "joseph-r-quinn",
   "license": "MIT",
   "engines": {
     "vscode": "^1.107.0"
@@ -231,12 +231,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pegasusheavy/vscode-tamagotchi.git"
+    "url": "git+https://github.com/quinnjr/vscode-tamagotchi.git"
   },
   "bugs": {
-    "url": "https://github.com/pegasusheavy/vscode-tamagotchi/issues"
+    "url": "https://github.com/quinnjr/vscode-tamagotchi/issues"
   },
-  "homepage": "https://pegasusheavy.github.io/vscode-tamagotchi",
+  "homepage": "https://quinnjr.github.io/vscode-tamagotchi",
   "lint-staged": {
     "src/**/*.ts": [
       "eslint --fix"

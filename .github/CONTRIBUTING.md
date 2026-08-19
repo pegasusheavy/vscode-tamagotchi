@@ -41,7 +41,7 @@ This project and everyone participating in it is governed by our [Code of Conduc
 3. **Add upstream remote**:
 
    ```bash
-   git remote add upstream https://github.com/pegasusheavy/vscode-tamagotchi.git
+   git remote add upstream https://github.com/quinnjr/vscode-tamagotchi.git
    ```
 
 4. **Install dependencies**:
@@ -295,8 +295,8 @@ Contributors will be recognized in the following ways:
 
 ## Need Help?
 
-- 💬 Open a [Discussion](https://github.com/pegasusheavy/vscode-tamagotchi/discussions)
-- 📖 Check the [Documentation](https://pegasusheavy.github.io/vscode-tamagotchi/)
-- 🐛 File an [Issue](https://github.com/pegasusheavy/vscode-tamagotchi/issues)
+- 💬 Open a [Discussion](https://github.com/quinnjr/vscode-tamagotchi/discussions)
+- 📖 Check the [Documentation](https://quinnjr.github.io/vscode-tamagotchi/)
+- 🐛 File an [Issue](https://github.com/quinnjr/vscode-tamagotchi/issues)
 
 Thank you for helping make VSCode Tamagotchi better! 🦁
